@@ -16,14 +16,13 @@ export abstract class Reduce {
     this.acumulador = 0;
   }
 
-  // operacion comun recorrer lista
   /**
    * método que ejecuta los pasos del algoritmo
    */
-  public run() {
-    this.after();
+  public run():number {
+    this.afterReduce();
     this.operacion();
-    this.before();
+    this.beforeReduce();
     return this.acumulador;
   }
 
@@ -31,12 +30,12 @@ export abstract class Reduce {
    * metodo opcional que realiza alguna operacion o paso antes de un paso
    * critico en el algortimo
    */
-  protected after() {}
+  protected afterReduce() {}
   /**
    * metodo opcional que realiza alguna operacion o paso despues de un paso
    * critico en el algortimo
    */
-  protected before() {}
+  protected beforeReduce() {}
   /**
    * metodo abstracto que obliga a las clases hijas a implementarlo para
    * realizar la operacion correspondiente en la lista de elementos

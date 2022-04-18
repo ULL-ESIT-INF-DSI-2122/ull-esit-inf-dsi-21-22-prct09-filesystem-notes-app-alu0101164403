@@ -8,7 +8,7 @@ export class DivReduce extends Reduce {
     super(listaElementos);
     this.acumulador = 1;
   }
-  after() {
+  afterReduce() {
     console.log('El acumulador inicia en 1');
   }
   public operacion(): number {
