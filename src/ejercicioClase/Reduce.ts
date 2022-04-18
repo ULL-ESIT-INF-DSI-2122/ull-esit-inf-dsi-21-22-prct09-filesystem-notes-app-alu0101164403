@@ -40,5 +40,5 @@ export abstract class Reduce {
    * metodo abstracto que obliga a las clases hijas a implementarlo para
    * realizar la operacion correspondiente en la lista de elementos
    */
-  public abstract operacion(): number;
+  protected abstract operacion(): number;
 }

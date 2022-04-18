@@ -20,19 +20,19 @@ describe('Test ejercicio Clase', () => {
   describe('Test SubReduce', () => {
     const sub: SubReduce = new SubReduce([0, 1, 2, 3, 4, 5]);
     it('se resta la lista de elementos y da -15', () => {
-      expect(sub.operacion()).to.be.equal(-15);
+      expect(sub.run()).to.be.equal(-15);
     });
   });
   describe('Test Prodeduce', () => {
     const prod: ProdReduce = new ProdReduce([1, 2, 5]);
     it('se multiplica la lista de elementos y da 10', () => {
-      expect(prod.operacion()).to.be.equal(10);
+      expect(prod.run()).to.be.equal(10);
     });
   });
   describe('Test DivReduce', () => {
     const div: DivReduce = new DivReduce([10, 2, 5]);
     it('se divide la lista de elementos y da 1', () => {
-      expect(div.operacion()).to.be.equal(1);
+      expect(div.run()).to.be.equal(1);
     });
   });
 });
