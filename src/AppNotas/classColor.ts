@@ -11,7 +11,7 @@ export class Colour {
       throw Error(chalk.red('El color no es correcto.'));
     }
   }
-  public getColor(): string {
+  public getColour(): string {
     return this.colour;
   }
 }

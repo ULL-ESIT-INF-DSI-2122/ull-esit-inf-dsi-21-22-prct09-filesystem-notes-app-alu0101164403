@@ -14,7 +14,12 @@ export class ManagementNotes {
     } else {
       this.user.getListNotes().add(newNote);
       const dir: string = `./NotasJson/${this.user.getUserName()}/${newNote.getTitle()}.json`;
-      fs.writeFileSync(dir, newNote.getBody());
+      const jsonToStore = {
+        'title': newNote.getTitle(),
+        'colour': newNote.getColour().getColour(),
+        'body': newNote.getBody(),
+      };
+      fs.writeFileSync(dir, JSON.stringify(jsonToStore));
       console.log(chalk.green(`The note was added correctly.`));
     }
   }
@@ -24,8 +29,13 @@ export class ManagementNotes {
       note.setColour(newColour);
       note.setTitle(newTitle);
       const dir: string = `./NotasJson/${this.user.getUserName()}/${note.getTitle()}.json`;
+      const jsonToStore = {
+        'title': newTitle,
+        'colour': newColour.getColour(),
+        'body': newBody,
+      };
       const fd = fs.openSync(dir, 'w');
-      fs.writeFileSync(fd, note.getBody());
+      fs.writeFileSync(fd, JSON.stringify(jsonToStore));
       fs.closeSync(fd);
       console.log(chalk.green(`The note has been modified correctly, the new data is: 
       - Title: ${note.getTitle()},

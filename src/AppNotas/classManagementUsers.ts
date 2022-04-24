@@ -1,12 +1,22 @@
 import chalk from 'chalk';
 import {User} from './classUser';
 import * as fs from 'fs';
+import {Note} from './classNote';
+import {Colour} from './classColor';
 
 export class ManagementUsers {
   private listUsers: Set<User> = new Set();
   private static managerUser: ManagementUsers;
 
   constructor() {
+    const usersNames: string[] = getDirectories('./NotasJson');
+    usersNames.forEach((userName) => {
+      const user: User = new User(userName);
+      const jsonList = getJsons(`./NotasJson/${userName}`);
+      const listNotes: Note[] = jsonList.map((json) => new Note(json.title, json.body, new Colour(json.colour)));
+      user.setListNotes(new Set(listNotes));
+      this.listUsers.add(user);
+    });
   }
 
   public static getManagerUser(): ManagementUsers {
@@ -43,9 +53,9 @@ export class ManagementUsers {
     const dir: string = `./NotasJson/${newUser.getUserName()}`;
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, {recursive: true});
-      console.log(`Se ha creado el directorio para el usuario ${newUser}`);
+      console.log(chalk.green(`Se ha creado el directorio para el usuario ${newUser.getUserName()}`));
     } else {
-      console.log(`Ya existe el directorio para el usuario ${newUser}`);
+      console.log(chalk.green(`Ya existe el directorio para el usuario ${newUser.getUserName()}`));
     }
     console.log(chalk.green(`Se ha creado y añadido el usuario ${newUser.getUserName()}`));
   }
@@ -55,10 +65,21 @@ export class ManagementUsers {
     const dir: string = `./NotasJson/${user}`;
     if (fs.existsSync(dir)) {
       fs.rmSync(dir, {recursive: true, force: true});
-      console.log(`Se ha eliminado el directorio para el usuario ${user}`);
+      console.log(chalk.green(`Se ha eliminado el directorio para el usuario ${user.getUserName()}`));
     }
   }
   public include(nameUser: string): boolean {
     return this.getUserNames().includes(nameUser);
   }
+}
+
+
+function getDirectories(source: string): string[] {
+  return fs.readdirSync(source, {withFileTypes: true}).filter((dirent) => dirent.isDirectory())
+      .map((dirent) => dirent.name);
+}
+
+function getJsons(source: string) {
+  const filesNames: string[] = fs.readdirSync(source, {withFileTypes: true}).map((file) => file.name);
+  return filesNames.map((fileName) => JSON.parse(fs.readFileSync(`${source}/${fileName}`, 'utf8')));
 }

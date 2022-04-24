@@ -26,7 +26,7 @@ export class Note {
   }
   // SHOW INFO NOTE
   public showInfo(): string {
-    const info: string = `-Titulo: ${this.title}\n-Cuerpo: ${this.body}\n-Color: ${this.colour.getColor()}`;
+    const info: string = `-Titulo: ${this.title}\n-Cuerpo: ${this.body}\n-Color: ${this.colour.getColour()}`;
     console.log(info);
     return info;
   }
