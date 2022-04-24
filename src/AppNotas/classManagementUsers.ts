@@ -49,24 +49,24 @@ export class ManagementUsers {
     }
   }
   public addUser(newUser: User): void {
-    this.listUsers.add(newUser);
     const dir: string = `./NotasJson/${newUser.getUserName()}`;
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, {recursive: true});
+      this.listUsers.add(newUser);
+      console.log(chalk.green(`Se ha creado y añadido el usuario ${newUser.getUserName()}`));
       console.log(chalk.green(`Se ha creado el directorio para el usuario ${newUser.getUserName()}`));
     } else {
       console.log(chalk.green(`Ya existe el directorio para el usuario ${newUser.getUserName()}`));
     }
-    console.log(chalk.green(`Se ha creado y añadido el usuario ${newUser.getUserName()}`));
   }
   public deleteUser(user: User): void {
-    this.listUsers.delete(user);
-    console.log(chalk.green(`Se ha eliminado el usuario ${user.getUserName()}`));
-    const dir: string = `./NotasJson/${user}`;
+    const dir: string = `./NotasJson/${user.getUserName()}`;
     if (fs.existsSync(dir)) {
       fs.rmSync(dir, {recursive: true, force: true});
       console.log(chalk.green(`Se ha eliminado el directorio para el usuario ${user.getUserName()}`));
     }
+    this.listUsers.delete(user);
+    console.log(chalk.green(`Se ha eliminado el usuario ${user.getUserName()}`));
   }
   public include(nameUser: string): boolean {
     return this.getUserNames().includes(nameUser);
