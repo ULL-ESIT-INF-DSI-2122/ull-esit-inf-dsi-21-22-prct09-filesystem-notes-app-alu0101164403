@@ -4,10 +4,16 @@ import {Colour} from './classColor';
 import chalk from 'chalk';
 import * as fs from 'fs';
 
+/**
+ * clase que representa la gestion de las notas, añadir/eliminar/modificar
+ */
 export class ManagementNotes {
   constructor(private user: User) {
   }
-  // GESTION NOTAS
+  /**
+   * añade una nueva nota al usuario dado y se crea el json con la nota
+   * @param newNote Note
+   */
   public addNote(newNote: Note): void {
     if (this.user.getListNotes().size > 0 && this.user.getTitlesNotes().includes(newNote.getTitle())) {
       throw Error(chalk.red(`There is already a note with the title -> '${newNote.getTitle()}' for the user ${this.user.getUserName()}.`));
@@ -23,6 +29,13 @@ export class ManagementNotes {
       console.log(chalk.green(`The note was added correctly.`));
     }
   }
+  /**
+   * se modifica la nota pedida y se modifica el json correspondiente
+   * @param note Note
+   * @param newTitle string
+   * @param newBody string
+   * @param newColour string
+   */
   public modifyNote(note: Note, newTitle: string, newBody: string, newColour: Colour): void {
     if (this.user.getTitlesNotes().includes(note.getTitle())) {
       note.setBody(newBody);
@@ -45,6 +58,10 @@ export class ManagementNotes {
       throw Error(chalk.red('The chosen note cannot be modified because it does not exist, you can create a new note.'));
     }
   }
+  /**
+   * elimina la nota pedida y su json
+   * @param note Note
+   */
   public removeNote(note: Note): void {
     if (this.user.getTitlesNotes().includes(note.getTitle())) {
       this.user.getListNotes().delete(note);

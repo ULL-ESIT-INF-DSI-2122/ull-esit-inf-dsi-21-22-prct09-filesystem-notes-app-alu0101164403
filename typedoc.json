@@ -1,5 +1,6 @@
 {
-    "entryPoints": ["src/index.ts"],
+    "entryPoints": ["src/AppNotas/classColor.ts", "src/AppNotas/classManagementNotes.ts", "src/AppNotas/classManagementUsers.ts",
+    "src/AppNotas/classNote.ts", "src/AppNotas/classUser.ts", "src/AppNotas/classShowInfo.ts"],
     "out": "./docs",
     "sort": "enum-value-ascending",
     "name": "Informe Práctica X"
