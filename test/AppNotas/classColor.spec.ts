@@ -13,6 +13,6 @@ describe('Test clase Colour', () => {
     }).to.throw('El color no es correcto.');
   });
   it('Se devuelve el color como string, blue', () => {
-    expect(blue.getColor()).to.be.equal('blue');
+    expect(blue.getColour()).to.be.equal('blue');
   });
 });
